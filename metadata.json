@@ -1,0 +1,6 @@
+{
+  "name": "Invoice Management System",
+  "description": "A mobile-first Invoice Management System designed for WebView, featuring invoice generation, customer management, automatic calculations, dynamic items, offline capabilities, and PDF export with Firestore synchronization.",
+  "requestFramePermissions": [],
+  "majorCapabilities": ["MAJOR_CAPABILITY_SERVER_SIDE_GEMINI_API"]
+}

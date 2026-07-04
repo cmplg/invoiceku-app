@@ -1,0 +1,22 @@
+{
+  "short_name": "InvoiceKu",
+  "name": "InvoiceKu - Mobile Invoice Management System",
+  "description": "A mobile-first Invoice Management System with PDF Export and Firestore sync.",
+  "icons": [
+    {
+      "src": "https://img.icons8.com/fluency/192/000000/invoice.png",
+      "type": "image/png",
+      "sizes": "192x192"
+    },
+    {
+      "src": "https://img.icons8.com/fluency/512/000000/invoice.png",
+      "type": "image/png",
+      "sizes": "512x512"
+    }
+  ],
+  "start_url": "/",
+  "background_color": "#F3F4F6",
+  "theme_color": "#3B82F6",
+  "display": "standalone",
+  "orientation": "portrait"
+}

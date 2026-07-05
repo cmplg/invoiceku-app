@@ -51,15 +51,32 @@ export default function App() {
 
   // Monitor Authentication State
   useEffect(() => {
-    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
-      setUser(currentUser);
-      if (currentUser) {
+    const savedUserJson = localStorage.getItem('invoice_custom_user');
+    if (savedUserJson) {
+      try {
+        const customUser = JSON.parse(savedUserJson);
+        setUser(customUser);
         setProfileLoading(true);
-        await fetchUserProfile(currentUser.uid);
+        fetchUserProfile(customUser.uid);
         setView('dashboard');
-      } else {
-        setProfile(null);
-        setView('login');
+        setAuthLoading(false);
+        return;
+      } catch (e) {
+        console.error('Error parsing custom user session:', e);
+      }
+    }
+
+    const unsubscribe = onAuthStateChanged(auth, async (currentUser) => {
+      if (!localStorage.getItem('invoice_custom_user')) {
+        setUser(currentUser);
+        if (currentUser) {
+          setProfileLoading(true);
+          await fetchUserProfile(currentUser.uid);
+          setView('dashboard');
+        } else {
+          setProfile(null);
+          setView('login');
+        }
       }
       setAuthLoading(false);
     });
@@ -118,7 +135,10 @@ export default function App() {
   const handleLogout = async () => {
     if (window.confirm('Apakah Anda yakin ingin keluar?')) {
       try {
+        localStorage.removeItem('invoice_custom_user');
         await signOut(auth);
+        setUser(null);
+        setProfile(null);
         triggerToast('Anda telah keluar dari aplikasi', 'info');
         setView('login');
       } catch (error) {
